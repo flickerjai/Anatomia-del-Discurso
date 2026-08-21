@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La evolución del adversario | 2022-2026</title>
+<style>
+  :root{
+    --ln:#11497d;
+    --ln-dark:#0b355c;
+    --ink:#171717;
+    --muted:#68727d;
+    --line:#dbe2e8;
+    --soft:#f5f7f9;
+    --paper:#ffffff;
+    --chaves:#26323c;
+    --laura:#11497d;
+    --accent:#d6e5f2;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:Arial, Helvetica, sans-serif;
+    line-height:1.45;
+  }
+  .viz{
+    max-width:1120px;
+    margin:0 auto;
+    padding:28px 22px 38px;
+  }
+  .eyebrow{
+    color:var(--ln);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:clamp(30px,4vw,48px);
+    line-height:1.04;
+    letter-spacing:-.025em;
+    margin:0 0 12px;
+    max-width:900px;
+  }
+  .deck{
+    color:#4f5963;
+    max-width:860px;
+    font-size:17px;
+    margin:0 0 24px;
+  }
+
+  .mode-tabs{
+    display:flex;
+    gap:8px;
+    border-bottom:1px solid var(--line);
+    margin:0 0 28px;
+  }
+  .mode-tab{
+    appearance:none;
+    border:0;
+    background:transparent;
+    padding:12px 14px 11px;
+    font-weight:800;
+    color:#697580;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    font-size:14px;
+  }
+  .mode-tab.active{
+    color:var(--ln);
+    border-bottom-color:var(--ln);
+  }
+  .view{display:none}
+  .view.active{display:block}
+
+  /* timeline */
+  .timeline-wrap{
+    position:relative;
+    margin:6px 0 24px;
+    padding-top:18px;
+    overflow-x:auto;
+    scrollbar-width:thin;
+  }
+  .timeline{
+    position:relative;
+    min-width:760px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:0;
+    align-items:start;
+    padding:0 12px 18px;
+  }
+  .timeline:before{
+    content:"";
+    position:absolute;
+    left:10%;
+    right:10%;
+    top:30px;
+    height:2px;
+    background:#c9d3db;
+  }
+  .year-btn{
+    position:relative;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    text-align:center;
+    padding:0 8px;
+    color:inherit;
+  }
+  .dot{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:#fff;
+    border:3px solid #9eabb6;
+    display:block;
+    margin:5px auto 10px;
+    position:relative;
+    z-index:2;
+    transition:.2s ease;
+  }
+  .year-btn.active .dot{
+    background:var(--ln);
+    border-color:var(--ln);
+    transform:scale(1.15);
+  }
+  .year{
+    display:block;
+    font-size:21px;
+    font-weight:900;
+    color:#26313a;
+    line-height:1.1;
+  }
+  .role{
+    display:block;
+    color:#7a858e;
+    font-size:11px;
+    line-height:1.25;
+    margin-top:5px;
+    min-height:28px;
+  }
+  .year-btn.active .year{color:var(--ln)}
+  .year-btn.active .role{color:#46515a}
+
+  .year-panel{
+    border-top:4px solid var(--ln);
+    background:var(--soft);
+    padding:24px;
+  }
+  .panel-kicker{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.075em;
+    font-weight:800;
+    color:var(--ln);
+  }
+  .panel-head{
+    display:grid;
+    grid-template-columns:1.1fr 2fr;
+    gap:28px;
+    margin:6px 0 24px;
+  }
+  .panel-head h2{
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:30px;
+    line-height:1.08;
+    margin:0 0 7px;
+  }
+  .speaker{
+    font-size:13px;
+    color:#5d6770;
+    font-weight:700;
+  }
+  .summary{
+    margin:0;
+    font-size:16px;
+    color:#39434b;
+  }
+  .actors-title{
+    margin:0 0 10px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.07em;
+    color:#66727d;
+    font-weight:900;
+  }
+  .actor-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:24px;
+  }
+  .chip{
+    border:1px solid #cbd5dd;
+    background:#fff;
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:12px;
+    font-weight:800;
+    color:#35414b;
+  }
+  .examples{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+  .example{
+    background:#fff;
+    border:1px solid #dde4ea;
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    min-height:235px;
+  }
+  .example .meta{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.055em;
+    font-weight:900;
+    color:var(--ln);
+    margin-bottom:10px;
+  }
+  blockquote{
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:18px;
+    line-height:1.28;
+    margin:0 0 14px;
+    color:#111;
+  }
+  .target{
+    margin-top:auto;
+    padding-top:12px;
+    border-top:1px solid #e7ebef;
+    font-size:12px;
+    color:#404b54;
+  }
+  .target b{color:#111}
+  .context{
+    margin-top:5px;
+    color:#707a83;
+  }
+
+  /* comparison */
+  .compare-intro{
+    max-width:860px;
+    margin:0 0 22px;
+    color:#4e5962;
+  }
+  .compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .person{
+    border:1px solid var(--line);
+    padding:22px;
+    background:#fff;
+  }
+  .person.chaves{border-top:5px solid var(--chaves)}
+  .person.laura{border-top:5px solid var(--laura)}
+  .person h2{
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:28px;
+    margin:0 0 2px;
+  }
+  .person .person-role{
+    color:#76818a;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:16px;
+  }
+  .thesis{
+    font-size:19px;
+    line-height:1.35;
+    font-weight:800;
+    margin:0 0 18px;
+  }
+  .moves{
+    display:grid;
+    gap:8px;
+  }
+  .move{
+    background:var(--soft);
+    padding:11px 12px;
+    border-left:3px solid #bfc9d1;
+  }
+  .move b{
+    display:block;
+    font-size:13px;
+    margin-bottom:2px;
+  }
+  .move span{
+    font-size:12px;
+    color:#5a656e;
+  }
+  .shared{
+    margin-top:18px;
+    border:1px solid var(--line);
+    background:#f8fafb;
+    padding:18px 20px;
+  }
+  .shared h3{
+    margin:0 0 6px;
+    font-size:15px;
+  }
+  .shared p{
+    margin:0;
+    color:#4d5962;
+    font-size:14px;
+  }
+  .note{
+    margin-top:18px;
+    font-size:11px;
+    color:#7b858d;
+    max-width:920px;
+  }
+
+  @media(max-width:760px){
+    .viz{padding:22px 15px 30px}
+    .deck{font-size:15px}
+    .mode-tabs{overflow-x:auto}
+    .mode-tab{white-space:nowrap}
+    .timeline-wrap{
+      margin-left:-15px;
+      margin-right:-15px;
+      padding-left:8px;
+      padding-right:8px;
+    }
+    .timeline{min-width:650px}
+    .panel-head{grid-template-columns:1fr;gap:10px}
+    .year-panel{padding:19px 15px}
+    .examples{grid-template-columns:1fr}
+    .example{min-height:unset}
+    .compare{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<main class="viz">
+  <div class="eyebrow">Análisis del discurso político · 2022–2026</div>
+  <h1>Cómo cambió el adversario en el discurso del Poder Ejecutivo</h1>
+  <p class="deck">La confrontación no mantuvo siempre los mismos blancos ni utilizó los mismos recursos. Explore cómo se desplazaron los actores señalados entre 2022 y 2026 y cómo Rodrigo Chaves y Laura Fernández construyen discursivamente a quienes confrontan.</p>
+
+  <div class="mode-tabs" role="tablist" aria-label="Secciones">
+    <button class="mode-tab active" data-view="timelineView">Evolución de los actores</button>
+    <button class="mode-tab" data-view="compareView">Dos formas de construir al adversario</button>
+  </div>
+
+  <section id="timelineView" class="view active">
+    <div class="timeline-wrap">
+      <div class="timeline" id="timeline"></div>
+    </div>
+    <div class="year-panel" id="yearPanel" aria-live="polite"></div>
+  </section>
+
+  <section id="compareView" class="view">
+    <p class="compare-intro">La diferencia no está solo en <i>a quién</i> se ataca, sino en <i>qué se hace lingüísticamente con ese adversario</i>. En el corpus, Chaves recurre con frecuencia a imágenes de daño, contaminación, depredación o incapacidad; Fernández combina la confrontación ideológica con una ridiculización más cotidiana e infantilizante.</p>
+
+    <div class="compare">
+      <article class="person chaves">
+        <h2>Rodrigo Chaves</h2>
+        <div class="person-role">Presidente, 2022–2026 · Ministro de la Presidencia, 2026</div>
+        <p class="thesis">El adversario aparece como algo <strong>dañado, peligroso, contaminante, depredador o intelectualmente incapaz</strong>.</p>
+        <div class="moves">
+          <div class="move"><b>Patologiza</b><span>“cáncer”, “atrofiada”: convierte conflictos institucionales en enfermedad o disfunción.</span></div>
+          <div class="move"><b>Animaliza</b><span>“ratas”, “sapos”, “culebras”, “animales ponzoñosos”: borra la condición humana o profesional del blanco.</span></div>
+          <div class="move"><b>Representa como parásito</b><span>“chupan”, “ordeñan”: el adversario vive de extraer recursos de una institución o del Estado.</span></div>
+          <div class="move"><b>Degrada por suciedad o desecho</b><span>“escoria”, “trapo viejo”: desplaza al blanco hacia objetos o residuos sin valor.</span></div>
+          <div class="move"><b>Criminaliza</b><span>“cómplices”, “capo”: traslada la confrontación política o institucional al campo del delito.</span></div>
+          <div class="move"><b>Descalifica la capacidad cognitiva</b><span>“mentes absurdas”, “neuronas”, “estupidez”: el desacuerdo se presenta como incapacidad de razonar.</span></div>
+        </div>
+      </article>
+
+      <article class="person laura">
+        <h2>Laura Fernández</h2>
+        <div class="person-role">Presidenta, 2026</div>
+        <p class="thesis">El adversario aparece con frecuencia como alguien <strong>inmaduro, ridículo, caprichoso o desconectado de la realidad</strong>.</p>
+        <div class="moves">
+          <div class="move"><b>Infantiliza</b><span>“acusetas”, “berrinches”, “pataletas”: el conflicto entre poderes se rebaja a conducta de niños.</span></div>
+          <div class="move"><b>Ficcionaliza</b><span>“viven en Narnia”: el desacuerdo se presenta como incapacidad de percibir la realidad.</span></div>
+          <div class="move"><b>Ridiculiza con diminutivos</b><span>“mentirosillos”, “cuentecillos”: reduce al adversario y su argumento a algo pequeño o poco serio.</span></div>
+          <div class="move"><b>Domestica el conflicto</b><span>“viejas de patio”, “chismes”: traslada disputas de Estado al patio, la casa o la conversación cotidiana.</span></div>
+          <div class="move"><b>Deslegitima la protesta</b><span>“vagabundos”, “maleantes”: convierte la movilización social en conducta improductiva o criminal.</span></div>
+          <div class="move"><b>Estigmatiza ideológicamente</b><span>“partida de comunistas”, “ambientalistas de caviar”: clasifica al adversario dentro de una identidad política descalificada.</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="shared">
+      <h3>Un recurso compartido: la estigmatización ideológica</h3>
+      <p>Los dos hablantes emplean etiquetas contra “comunistas” o sectores asociados a la izquierda. En Chaves aparece ya en 2023 (“los comunistas son por definición hipócritas y mentirosos”); en Fernández ocupa un lugar visible durante 2026, ligada también a protestas y oposición al Ejecutivo.</p>
+    </div>
+
+    <p class="note">Esta lectura resume patrones del corpus analizado; los ejemplos muestran recursos recurrentes y no sustituyen la totalidad de ocurrencias registradas.</p>
+  </section>
+</main>
+
+<script>
+const data = {
+  "2022":{
+    role:"Rodrigo Chaves · presidente",
+    title:"Prensa y élites entran al centro del conflicto",
+    summary:"En los primeros 100 días, la confrontación se dirige con especial fuerza hacia la prensa crítica, actores asociados a élites económicas y estructuras del Estado presentadas como privilegiadas o disfuncionales.",
+    actors:["Prensa crítica","Grupo Nación / élites","Funcionarios de administraciones previas","Órganos desconcentrados","Pensiones de lujo"],
+    examples:[
+      {date:"22 JUN. 2022", quote:"“...algún medio pervertido...”", target:"Prensa fiscalizadora", context:"Respuesta a consultas periodísticas sobre causas y contratación de abogados."},
+      {date:"13 JUL. 2022", quote:"“...estos señores feudales autocoronados...”", target:"Socios y directivos del Grupo Nación", context:"Crisis por el cierre temporal de Parque Viva y señalamientos sobre privilegios."},
+      {date:"3 AGO. 2022", quote:"“Hay rinocerontes, hay mapaches, hay ratas... la fauna.”", target:"Prensa crítica", context:"Descalificación de medios a los que el presidente dijo no creer."}
+    ]
+  },
+  "2023":{
+    role:"Rodrigo Chaves · presidente",
+    title:"El adversario se ensancha: prensa, izquierda y gremios",
+    summary:"La prensa continúa como blanco, pero el repertorio se expande hacia sindicatos y gremios de la CCSS y hacia una oposición ideológica identificada directamente con el Frente Amplio y el comunismo.",
+    actors:["Prensa tradicional","Frente Amplio","Sindicatos y gremios de la CCSS","Opositores fiscales","Exjerarcas"],
+    examples:[
+      {date:"17 MAY. 2023", quote:"“...ya no chupan tanto... o ya no se alimentan tanto del presupuesto...”", target:"La Nación, Canal 7 y CR Hoy", context:"Discusión sobre la reducción de pauta publicitaria estatal."},
+      {date:"17 MAY. 2023", quote:"“...la ordeñan hasta la última gota...”", target:"Sindicatos y gremios médicos de la CCSS", context:"Conflicto por salarios, pluses y finanzas de la Caja."},
+      {date:"31 MAY. 2023", quote:"“Los comunistas son por definición hipócritas y mentirosos.”", target:"Frente Amplio", context:"Pulso político con la bancada de izquierda por su oposición a proyectos del Ejecutivo."}
+    ]
+  },
+  "2024":{
+    role:"Rodrigo Chaves · presidente",
+    title:"La Asamblea Legislativa pasa al primer plano",
+    summary:"El Congreso y sus diputados se vuelven un blanco recurrente. El control político es representado como espectáculo, incapacidad o distorsión, mientras se individualizan legisladores y jefaturas de oposición.",
+    actors:["Asamblea Legislativa","Comisiones legislativas","Diputados de oposición","Rodrigo Arias","Prensa"],
+    examples:[
+      {date:"29 MAY. 2024", quote:"“...proyectos absurdos, de mentes absurdas y ridículas...”", target:"Diputados del Frente Amplio", context:"Crítica a iniciativas legislativas impulsadas por la oposición."},
+      {date:"12 JUN. 2024", quote:"“...el comicirco del Sinart...”", target:"Comisión legislativa investigadora del SINART", context:"Respuesta al control político e interrogatorios de la comisión."},
+      {date:"12 JUN. 2024", quote:"“...los tres chiflados...”", target:"Jefaturas de fracción de oposición", context:"Ridiculización de apariciones conjuntas de líderes legislativos opositores."}
+    ]
+  },
+  "2025":{
+    role:"Rodrigo Chaves · presidente",
+    title:"El Poder Judicial se convierte en el blanco dominante",
+    summary:"La confrontación se concentra en la Fiscalía, el OIJ y la Corte. Al mismo tiempo, el ataque deja de ser solo institucional: nombres propios como Carlos Díaz, Randal Zúñiga, Orlando Aguirre y Patricia Solano reciben descalificaciones directas.",
+    actors:["Fiscalía General","OIJ","Corte Suprema","Carlos Díaz","Randal Zúñiga","Orlando Aguirre","Patricia Solano"],
+    examples:[
+      {date:"14 MAY. 2025", quote:"“...son incompetentes arbitrarios...”", target:"Carlos Díaz y Randal Zúñiga", context:"Respuesta a allanamientos y actuaciones judiciales contra integrantes del Ejecutivo."},
+      {date:"14 MAY. 2025", quote:"“Uno no le da a los animales ponzoñosos.”", target:"Jerarcas del Ministerio Público, OIJ y Poder Judicial", context:"Mismo episodio de confrontación con autoridades de investigación penal."},
+      {date:"25 JUN. 2025", quote:"“Orlando Aguirre, ¿no le da vergüenza a usted?”", target:"Orlando Aguirre", context:"Ataque individual al presidente de la Corte por decisiones vinculadas al fiscal general."}
+    ]
+  },
+  "2026":{
+    role:"Laura Fernández · presidenta / Rodrigo Chaves · ministro de la Presidencia",
+    title:"El frente judicial continúa y el conflicto se expande",
+    summary:"El Poder Judicial sigue siendo un blanco central, pero la confrontación alcanza de manera más visible a oposición política, protesta social, prensa y movimientos sociales. La misma conferencia puede combinar las intervenciones de Fernández y Chaves.",
+    actors:["Poder Judicial","Oposición legislativa","Frente Amplio / izquierda","Protesta social","Prensa crítica","Movimientos sociales y feministas"],
+    examples:[
+      {date:"20 MAY. 2026 · FERNÁNDEZ", quote:"“Parece que viven en Narnia...”", target:"Autoridades del Poder Judicial", context:"Reunión y choque con jerarcas judiciales por seguridad e impunidad."},
+      {date:"27 MAY. 2026 · FERNÁNDEZ", quote:"“...estos vagabundos.”", target:"Activistas y sindicatos en protesta", context:"Conflicto por protestas y oposición al proyecto de armonización eléctrica."},
+      {date:"15 JUL. 2026 · CHAVES", quote:"“...¿cuánta gente hubo? 15... incluyéndola a ella y a los parientes...”", target:"Rocío Alfaro y movimientos de protesta sindical", context:"Burla para reducir la magnitud y legitimidad de una movilización social."}
+    ]
+  }
+};
+
+const timeline = document.getElementById("timeline");
+const panel = document.getElementById("yearPanel");
+
+Object.keys(data).forEach((year,i)=>{
+  const b=document.createElement("button");
+  b.className="year-btn"+(i===0?" active":"");
+  b.dataset.year=year;
+  b.innerHTML=`<span class="dot"></span><span class="year">${year}</span><span class="role">${year==="2026"?"Fernández + Chaves":"Rodrigo Chaves<br>presidente"}</span>`;
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".year-btn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    render(year);
+  });
+  timeline.appendChild(b);
+});
+
+function render(year){
+  const d=data[year];
+  panel.innerHTML=`
+    <div class="panel-kicker">${year}</div>
+    <div class="panel-head">
+      <div>
+        <h2>${d.title}</h2>
+        <div class="speaker">${d.role}</div>
+      </div>
+      <p class="summary">${d.summary}</p>
+    </div>
+    <div class="actors-title">Actores que concentran la confrontación</div>
+    <div class="actor-chips">${d.actors.map(a=>`<span class="chip">${a}</span>`).join("")}</div>
+    <div class="examples">
+      ${d.examples.map(e=>`
+        <article class="example">
+          <div class="meta">${e.date}</div>
+          <blockquote>${e.quote}</blockquote>
+          <div class="target"><b>Blanco:</b> ${e.target}<div class="context">${e.context}</div></div>
+        </article>`).join("")}
+    </div>`;
+}
+render("2022");
+
+document.querySelectorAll(".mode-tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".mode-tab").forEach(t=>t.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById(tab.dataset.view).classList.add("active");
+  });
+});
+</script>
+</body>
+</html>
