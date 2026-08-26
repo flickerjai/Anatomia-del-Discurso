@@ -539,5 +539,44 @@ document.querySelectorAll(".zxy-mode-tab").forEach(tab=>{
 setTimeout(zxyUpdateTabIndicators,80);
 })();
 </script>
+
+<script>
+(function () {
+  function zxyReportHeight() {
+    const height = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+
+    window.parent.postMessage(
+      {
+        type: "zxy-iframe-resize",
+        height: height
+      },
+      "*"
+    );
+  }
+
+  // Al cargar
+  window.addEventListener("load", zxyReportHeight);
+
+  // Si cambia el ancho de pantalla
+  window.addEventListener("resize", zxyReportHeight);
+
+  // Si cambia el contenido: pestañas, años, tarjetas, etc.
+  if ("ResizeObserver" in window) {
+    const observer = new ResizeObserver(function () {
+      zxyReportHeight();
+    });
+
+    observer.observe(document.body);
+  }
+
+  // Refuerzos por si las fuentes o elementos tardan en renderizar
+  setTimeout(zxyReportHeight, 100);
+  setTimeout(zxyReportHeight, 500);
+})();
+</script>
+
 </body>
 </html>
