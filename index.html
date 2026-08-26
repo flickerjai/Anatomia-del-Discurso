@@ -21,7 +21,7 @@
   .zxy-mode-tab{appearance:none;border:0;background:transparent;padding:12px 10px 11px;font-weight:800;color:#697580;cursor:pointer;border-bottom:3px solid transparent;font-size:13px;white-space:nowrap}
   .zxy-mode-tab.zxy-active{color:#11497d;border-bottom-color:#11497d}
   .zxy-view{display:none}.zxy-view.zxy-active{display:block}
-  .zxy-timeline-wrap{position:relative;margin:6px 0 22px;padding-top:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .zxy-timeline-shell{display:flex;align-items:center;gap:6px;margin:6px 0 22px}.zxy-timeline-wrap{position:relative;flex:1;min-width:0;padding-top:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scroll-behavior:smooth;scroll-snap-type:x proximity}.zxy-year-btn{scroll-snap-align:center}.zxy-timeline-arrow{flex:0 0 36px;width:36px;height:36px;border:1px solid #cbd5dd;border-radius:999px;background:#fff;color:#11497d;font-size:21px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer}.zxy-timeline-arrow:disabled{opacity:.28;cursor:default}@media(min-width:721px){.zxy-timeline-arrow{display:none}}
   .zxy-timeline{position:relative;min-width:640px;display:grid;grid-template-columns:repeat(5,1fr);align-items:start;padding:0 10px 18px}
   .zxy-timeline:before{content:"";position:absolute;left:1%;right:1%;top:30px;height:2px;background:#c9d3db}
   .zxy-year-btn{position:relative;border:0;background:transparent;cursor:pointer;text-align:center;padding:0 6px;color:inherit}
@@ -82,6 +82,84 @@
     .zxy-transform-row{grid-template-columns:50px 1fr}
   }
 
+
+  .zxy-mode-tabs-wrap{position:relative}
+  .zxy-mode-tabs-wrap::after{
+    content:"›";
+    position:absolute;
+    right:0;
+    top:0;
+    bottom:1px;
+    width:28px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding-right:4px;
+    color:#8a949d;
+    font-size:18px;
+    pointer-events:none;
+    background:linear-gradient(to right, rgba(255,255,255,0), #fff 65%);
+  }
+
+  @media(max-width:640px){
+    .zxy-mode-tabs{
+      overflow-x:auto;
+      scroll-behavior:smooth;
+      scrollbar-width:none;
+      padding-right:24px;
+    }
+    .zxy-mode-tabs::-webkit-scrollbar{display:none}
+
+    /* Mobile: show all years, no horizontal scroll */
+    .zxy-timeline-shell{
+      display:block;
+      margin:8px 0 20px;
+    }
+    .zxy-timeline-arrow{display:none !important}
+    .zxy-timeline-wrap{
+      overflow:visible;
+      padding-top:8px;
+    }
+    .zxy-timeline{
+      min-width:0 !important;
+      width:100%;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px 6px;
+      padding:0 2px 8px;
+    }
+    .zxy-timeline:before{display:none}
+    .zxy-year-btn{
+      min-width:0;
+      padding:8px 3px 7px;
+      border:1px solid #d7dfe5;
+      border-radius:6px;
+      background:#fff;
+    }
+    .zxy-year-btn.zxy-active{
+      border-color:#11497d;
+      background:#f5f8fb;
+    }
+    .zxy-dot{
+      display:none !important;
+    }
+    .zxy-year{
+      font-size:18px;
+    }
+    .zxy-role{
+      min-height:0;
+      margin-top:3px;
+      font-size:9px;
+    }
+    .zxy-year-btn:nth-child(4),
+    .zxy-year-btn:nth-child(5){
+      transform:translateX(50%);
+    }
+  }
+
+  @media(min-width:641px){
+    .zxy-mode-tabs-wrap::after{display:none}
+  }
+
 </style>
 </head>
 <body style="margin:0;background:#fff;">
@@ -106,7 +184,7 @@
   </div>
 
   <section id="zxy-timelineView" class="zxy-view zxy-active">
-    <div class="zxy-timeline-wrap"><div class="zxy-timeline" id="zxy-timeline"></div></div>
+    <div class="zxy-timeline-shell"><button type="button" class="zxy-timeline-arrow" id="zxy-prevYear" aria-label="Ver año anterior">‹</button><div class="zxy-timeline-wrap" id="zxy-timelineWrap"><div class="zxy-timeline" id="zxy-timeline"></div></div><button type="button" class="zxy-timeline-arrow" id="zxy-nextYear" aria-label="Ver año siguiente">›</button></div>
     <div class="zxy-year-panel" id="zxy-yearPanel" aria-live="polite"></div>
   </section>
 
@@ -293,8 +371,35 @@ const zxyData={
   ]
 }}
 ;
-const zxyTimeline=document.getElementById("zxy-timeline"),zxyPanel=document.getElementById("zxy-yearPanel");
-Object.keys(zxyData).forEach((year,i)=>{const b=document.createElement("button");b.className="zxy-year-btn"+(i===0?" zxy-active":"");b.dataset.zxyYear=year;b.innerHTML=`<span class="zxy-dot"></span><span class="zxy-year">${year}</span><span class="zxy-role">${year==="2026"?"Laura Fernández<br>presidente<br><span style=\"font-weight:400\">(Chaves, ministro)</span>":"Rodrigo Chaves<br>presidente"}</span>`;b.addEventListener("click",()=>{document.querySelectorAll(".zxy-year-btn").forEach(x=>x.classList.remove("zxy-active"));b.classList.add("zxy-active");zxyRender(year)});zxyTimeline.appendChild(b)});
+const zxyTimeline=document.getElementById("zxy-timeline"),
+zxyPanel=document.getElementById("zxy-yearPanel"),
+zxyTimelineWrap=document.getElementById("zxy-timelineWrap"),
+zxyPrevYear=document.getElementById("zxy-prevYear"),
+zxyNextYear=document.getElementById("zxy-nextYear");
+let zxyCurrentYear="2022";
+
+function zxyCenterYear(year){
+  if(window.innerWidth<=640)return;
+  const btn=zxyTimeline.querySelector(`[data-zxy-year="${year}"]`);
+  if(!btn||!zxyTimelineWrap)return;
+  const target=btn.offsetLeft-(zxyTimelineWrap.clientWidth/2)+(btn.offsetWidth/2);
+  zxyTimelineWrap.scrollTo({left:Math.max(0,target),behavior:"smooth"});
+}
+function zxyUpdateArrows(){
+  const years=Object.keys(zxyData),idx=years.indexOf(zxyCurrentYear);
+  zxyPrevYear.disabled=idx<=0;
+  zxyNextYear.disabled=idx>=years.length-1;
+}
+function zxySelectYear(year){
+  zxyCurrentYear=year;
+  document.querySelectorAll(".zxy-year-btn").forEach(x=>x.classList.remove("zxy-active"));
+  const btn=zxyTimeline.querySelector(`[data-zxy-year="${year}"]`);
+  if(btn)btn.classList.add("zxy-active");
+  zxyRender(year);
+  requestAnimationFrame(()=>zxyCenterYear(year));
+  zxyUpdateArrows();
+}
+Object.keys(zxyData).forEach((year,i)=>{const b=document.createElement("button");b.className="zxy-year-btn"+(i===0?" zxy-active":"");b.dataset.zxyYear=year;b.innerHTML=`<span class="zxy-dot"></span><span class="zxy-year">${year}</span><span class="zxy-role">${year==="2026"?"Laura Fernández<br>presidente<br><span style=\"font-weight:400\">(Chaves, ministro)</span>":"Rodrigo Chaves<br>presidente"}</span>`;b.addEventListener("click",()=>zxySelectYear(year));zxyTimeline.appendChild(b)});
 function zxyRender(year){
   const d=zxyData[year];
   const steps=["Colectivo","Mixto","Individualizado"];
@@ -344,8 +449,22 @@ function zxyRender(year){
     </div>
   `
 }
+zxyPrevYear.addEventListener("click",()=>{const years=Object.keys(zxyData),idx=years.indexOf(zxyCurrentYear);if(idx>0)zxySelectYear(years[idx-1])});
+zxyNextYear.addEventListener("click",()=>{const years=Object.keys(zxyData),idx=years.indexOf(zxyCurrentYear);if(idx<years.length-1)zxySelectYear(years[idx+1])});
+window.addEventListener("resize",()=>zxyCenterYear(zxyCurrentYear));
 zxyRender("2022");
-document.querySelectorAll(".zxy-mode-tab").forEach(tab=>{tab.addEventListener("click",()=>{document.querySelectorAll(".zxy-mode-tab").forEach(t=>t.classList.remove("zxy-active"));document.querySelectorAll(".zxy-view").forEach(v=>v.classList.remove("zxy-active"));tab.classList.add("zxy-active");document.getElementById(tab.dataset.zxyView).classList.add("zxy-active")})});
+zxyUpdateArrows();
+document.querySelectorAll(".zxy-mode-tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".zxy-mode-tab").forEach(t=>t.classList.remove("zxy-active"));
+    document.querySelectorAll(".zxy-view").forEach(v=>v.classList.remove("zxy-active"));
+    tab.classList.add("zxy-active");
+    document.getElementById(tab.dataset.zxyView).classList.add("zxy-active");
+    if(window.innerWidth<=640){
+      tab.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+    }
+  })
+});
 })();
 </script>
 </body>
