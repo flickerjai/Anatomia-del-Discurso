@@ -591,13 +591,22 @@ setTimeout(zxyUpdateTabIndicators,80);
 
 
 
+
+
+
 <script>
 (function () {
   function sendHeight() {
-    const height = Math.ceil(Math.max(
-      document.body ? document.body.scrollHeight : 0,
-      document.documentElement ? document.documentElement.scrollHeight : 0
-    ));
+    const viz = document.querySelector('.zxy-viz');
+    if (!viz) return;
+
+    const rect = viz.getBoundingClientRect();
+    const styles = window.getComputedStyle(viz);
+
+    const marginTop = parseFloat(styles.marginTop) || 0;
+    const marginBottom = parseFloat(styles.marginBottom) || 0;
+
+    const height = Math.ceil(rect.height + marginTop + marginBottom);
 
     if (window.parent && window.parent !== window) {
       window.parent.postMessage(
@@ -610,21 +619,29 @@ setTimeout(zxyUpdateTabIndicators,80);
   window.addEventListener('load', sendHeight);
   window.addEventListener('resize', sendHeight);
 
-  if ('ResizeObserver' in window && document.body) {
-    const resizeObserver = new ResizeObserver(sendHeight);
-    resizeObserver.observe(document.body);
+  if ('ResizeObserver' in window) {
+    const viz = document.querySelector('.zxy-viz');
+    if (viz) {
+      const resizeObserver = new ResizeObserver(function () {
+        requestAnimationFrame(sendHeight);
+      });
+      resizeObserver.observe(viz);
+    }
   }
 
-  if ('MutationObserver' in window && document.body) {
-    const mutationObserver = new MutationObserver(function () {
-      requestAnimationFrame(sendHeight);
-    });
+  if ('MutationObserver' in window) {
+    const viz = document.querySelector('.zxy-viz');
+    if (viz) {
+      const mutationObserver = new MutationObserver(function () {
+        requestAnimationFrame(sendHeight);
+      });
 
-    mutationObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true
-    });
+      mutationObserver.observe(viz, {
+        childList: true,
+        subtree: true,
+        attributes: true
+      });
+    }
   }
 
   document.addEventListener('click', function () {
