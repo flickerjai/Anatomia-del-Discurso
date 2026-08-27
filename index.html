@@ -588,9 +588,12 @@ setTimeout(zxyUpdateTabIndicators,80);
 })();
 </script>
 
+
+
+
 <script>
 (function () {
-  function zxyPostHeight() {
+  function sendHeight() {
     const height = Math.ceil(Math.max(
       document.body ? document.body.scrollHeight : 0,
       document.documentElement ? document.documentElement.scrollHeight : 0
@@ -598,46 +601,41 @@ setTimeout(zxyUpdateTabIndicators,80);
 
     if (window.parent && window.parent !== window) {
       window.parent.postMessage(
-        {
-          type: "zxy-iframe-resize",
-          height: height
-        },
-        "*"
+        { height: height },
+        '*'
       );
     }
   }
 
-  window.addEventListener("load", zxyPostHeight);
-  window.addEventListener("resize", zxyPostHeight);
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
 
-  if ("ResizeObserver" in window && document.body) {
-    const zxyResizeObserver = new ResizeObserver(function () {
-      zxyPostHeight();
-    });
-    zxyResizeObserver.observe(document.body);
+  if ('ResizeObserver' in window && document.body) {
+    const resizeObserver = new ResizeObserver(sendHeight);
+    resizeObserver.observe(document.body);
   }
 
-  if ("MutationObserver" in window && document.body) {
-    const zxyMutationObserver = new MutationObserver(function () {
-      requestAnimationFrame(zxyPostHeight);
+  if ('MutationObserver' in window && document.body) {
+    const mutationObserver = new MutationObserver(function () {
+      requestAnimationFrame(sendHeight);
     });
-    zxyMutationObserver.observe(document.body, {
+
+    mutationObserver.observe(document.body, {
       childList: true,
       subtree: true,
-      attributes: true,
-      characterData: false
+      attributes: true
     });
   }
 
-  document.addEventListener("click", function () {
-    requestAnimationFrame(zxyPostHeight);
-    setTimeout(zxyPostHeight, 120);
-    setTimeout(zxyPostHeight, 350);
+  document.addEventListener('click', function () {
+    requestAnimationFrame(sendHeight);
+    setTimeout(sendHeight, 100);
+    setTimeout(sendHeight, 300);
   });
 
-  setTimeout(zxyPostHeight, 50);
-  setTimeout(zxyPostHeight, 250);
-  setTimeout(zxyPostHeight, 700);
+  setTimeout(sendHeight, 50);
+  setTimeout(sendHeight, 250);
+  setTimeout(sendHeight, 700);
 })();
 </script>
 
