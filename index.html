@@ -446,6 +446,29 @@
     font-weight:400;
   }
 
+
+  /* Navegación del carrusel: visible y usable también en escritorio */
+  .zxy-carousel-hint{
+    display:block !important;
+    margin:0 0 8px;
+    font-size:9px;
+    color:#7b858d;
+    font-weight:700;
+    text-align:right;
+  }
+  .zxy-examples{
+    cursor:grab;
+  }
+  .zxy-examples:active{
+    cursor:grabbing;
+  }
+  @media(min-width:640px){
+    .zxy-carousel-hint{
+      font-size:10px;
+      margin-bottom:10px;
+    }
+  }
+
 </style>
 </head>
 <body style="margin:0;background:#fff;">
@@ -681,20 +704,33 @@ function zxyInitQuoteCarousel(){
   if(!cards.length)return;
 
   let current=0;
+  let scrollTimer=null;
+
+  function maxScroll(){
+    return Math.max(0,scroller.scrollWidth-scroller.clientWidth);
+  }
+
+  function cardLeft(index){
+    const first=cards[0];
+    return Math.max(0,cards[index].offsetLeft-first.offsetLeft);
+  }
 
   function nearestIndex(){
     const left=scroller.scrollLeft;
-    const maxScroll=scroller.scrollWidth-scroller.clientWidth;
+    const max=maxScroll();
 
-    // Force exact endpoints so the counter reaches 1/N and N/N.
-    if(left<=2) return 0;
-    if(maxScroll-left<=2) return cards.length-1;
+    if(left<=3)return 0;
+    if(max-left<=3)return cards.length-1;
 
     let best=0;
     let distance=Infinity;
     cards.forEach((card,i)=>{
-      const d=Math.abs(card.offsetLeft-left);
-      if(d<distance){distance=d;best=i}
+      const target=Math.min(cardLeft(i),max);
+      const d=Math.abs(target-left);
+      if(d<distance){
+        distance=d;
+        best=i;
+      }
     });
     return best;
   }
@@ -707,32 +743,64 @@ function zxyInitQuoteCarousel(){
   }
 
   function goTo(index){
-    const target=Math.max(0,Math.min(cards.length-1,index));
+    const targetIndex=Math.max(0,Math.min(cards.length-1,index));
+    const max=maxScroll();
+    let left;
 
-    if(target===cards.length-1){
-      scroller.scrollTo({
-        left:scroller.scrollWidth-scroller.clientWidth,
-        behavior:"smooth"
-      });
-    }else if(target===0){
-      scroller.scrollTo({left:0,behavior:"smooth"});
+    if(targetIndex===cards.length-1){
+      left=max;
+    }else if(targetIndex===0){
+      left=0;
     }else{
-      cards[target].scrollIntoView({
-        behavior:"smooth",
-        block:"nearest",
-        inline:"start"
-      });
+      left=Math.min(cardLeft(targetIndex),max);
     }
 
-    current=target;
-    setTimeout(update,320);
+    current=targetIndex;
+    counter.textContent=(current+1)+" de "+cards.length;
+    prev.disabled=current<=0;
+    next.disabled=current>=cards.length-1;
+
+    scroller.scrollTo({
+      left:left,
+      behavior:"smooth"
+    });
+
+    clearTimeout(scrollTimer);
+    scrollTimer=setTimeout(update,380);
   }
 
-  prev.addEventListener("click",()=>goTo(current-1));
-  next.addEventListener("click",()=>goTo(current+1));
-  scroller.addEventListener("scroll",()=>{
-    requestAnimationFrame(update);
+  prev.addEventListener("click",function(){
+    goTo(current-1);
+  });
+
+  next.addEventListener("click",function(){
+    goTo(current+1);
+  });
+
+  scroller.addEventListener("scroll",function(){
+    clearTimeout(scrollTimer);
+    scrollTimer=setTimeout(update,90);
   },{passive:true});
+
+  /* En escritorio, la rueda vertical mueve el carrusel horizontalmente
+     mientras todavía haya contenido en esa dirección. En los extremos,
+     la página conserva su scroll normal. */
+  scroller.addEventListener("wheel",function(e){
+    const delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+    if(!delta)return;
+
+    const max=maxScroll();
+    const canMoveRight=delta>0 && scroller.scrollLeft<max-2;
+    const canMoveLeft=delta<0 && scroller.scrollLeft>2;
+
+    if(canMoveRight||canMoveLeft){
+      e.preventDefault();
+      scroller.scrollBy({
+        left:delta,
+        behavior:"auto"
+      });
+    }
+  },{passive:false});
 
   update();
 }
@@ -776,7 +844,7 @@ function zxyRender(year){
           <button type="button" class="zxy-quote-arrow zxy-quote-next" aria-label="Frase siguiente">›</button>
         </div>
       </div>
-      <div class="zxy-carousel-hint">Desliza para explorar todas →</div>
+      <div class="zxy-carousel-hint">Desliza o usa las flechas para ver más →</div>
       <div class="zxy-examples" role="region" aria-label="Carrusel de frases agresivas registradas">
         ${d.examples.map((e,i)=>`
           <article class="zxy-example" data-zxy-quote-index="${i}">
