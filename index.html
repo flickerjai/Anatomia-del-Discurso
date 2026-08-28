@@ -59,7 +59,7 @@
   @media(min-width:640px){.zxy-viz{padding:30px 22px 40px}.zxy-panel-head{grid-template-columns:1.05fr 1.65fr;gap:22px}.zxy-examples{grid-template-columns:repeat(3,1fr)}.zxy-example{min-height:225px}.zxy-compare{grid-template-columns:1fr 1fr}.zxy-timeline{min-width:0}.zxy-timeline-wrap{overflow:visible}.zxy-role{font-size:10px}}
   @media(max-width:639px){.zxy-timeline-wrap{margin-left:-18px;margin-right:-18px;padding-left:8px;padding-right:8px}.zxy-title{font-size:30px}.zxy-deck{font-size:15px}.zxy-year-panel{padding:18px 15px}.zxy-panel-title{font-size:25px}}
 
-  .zxy-data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 18px}
+  .zxy-data-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 18px}
   .zxy-data-card{background:#fff;border:1px solid #dfe5ea;padding:10px 11px}
   .zxy-data-label{font-size:9px;line-height:1.25;text-transform:uppercase;letter-spacing:.06em;font-weight:900;color:#6d7881;margin-bottom:4px}
   .zxy-data-value{font-size:13px;line-height:1.35;font-weight:800;color:#1b252d}
@@ -269,6 +269,33 @@
     .zxy-interactive-badge{font-size:9px}
   }
 
+
+  .zxy-data-card.zxy-data-card-wide{
+    grid-column:1 / -1;
+  }
+  .zxy-data-card-wide .zxy-data-value{
+    font-size:13px;
+    line-height:1.55;
+    font-weight:500;
+  }
+  @media(max-width:640px){
+    .zxy-data-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+    .zxy-data-card{
+      min-width:0;
+    }
+    .zxy-data-card-wide{
+      grid-column:1 / -1;
+    }
+  }
+
+
+  .zxy-data-card-wide .zxy-data-value strong{
+    font-weight:800;
+    color:#27323b;
+  }
+
 </style>
 </head>
 <body style="margin:0;background:#fff;">
@@ -287,6 +314,17 @@
     </p>
   </div>
 
+  <div class="zxy-mode-tabs-wrap">
+    <button type="button" class="zxy-tab-nav zxy-tab-left" id="zxy-tabLeft" aria-label="Ver pestañas anteriores"><span>‹</span></button>
+    <div class="zxy-mode-tabs" id="zxy-modeTabs" role="tablist" aria-label="Secciones">
+      <button class="zxy-mode-tab zxy-active" data-zxy-view="zxy-timelineView">Evolución de los actores</button>
+      <button class="zxy-mode-tab" data-zxy-view="zxy-compareView">Dos formas de construir al adversario</button>
+      <button class="zxy-mode-tab" data-zxy-view="zxy-transformView">La transformación en cinco años</button>
+    </div>
+    <button type="button" class="zxy-tab-nav zxy-tab-right" id="zxy-tabRight" aria-label="Ver más pestañas"><span>›</span></button>
+    <div class="zxy-tabs-hint" id="zxy-tabsHint">Desliza para ver más →</div>
+  </div>
+
   <section id="zxy-timelineView" class="zxy-view zxy-active">
     <div class="zxy-timeline-shell"><button type="button" class="zxy-timeline-arrow" id="zxy-prevYear" aria-label="Ver año anterior">‹</button><div class="zxy-timeline-wrap" id="zxy-timelineWrap"><div class="zxy-timeline" id="zxy-timeline"></div></div><button type="button" class="zxy-timeline-arrow" id="zxy-nextYear" aria-label="Ver año siguiente">›</button></div>
     <div class="zxy-year-panel" id="zxy-yearPanel" aria-live="polite"></div>
@@ -295,19 +333,6 @@
   <section id="zxy-compareView" class="zxy-view">
     <p class="zxy-compare-intro">La diferencia no está solo en <i>a quién</i> se ataca, sino en <i>qué se hace lingüísticamente con ese adversario</i>. En el corpus, Chaves recurre con frecuencia a imágenes de daño, contaminación, depredación o incapacidad; Fernández combina la confrontación ideológica con una ridiculización más cotidiana e infantilizante.</p>
     <div class="zxy-compare">
-      <article class="zxy-person zxy-chaves">
-        <h2 class="zxy-person-title">Rodrigo Chaves</h2>
-        <div class="zxy-person-role">Presidente, 2022–2026 · Ministro de la Presidencia, 2026</div>
-        <p class="zxy-thesis">El adversario aparece como algo <strong>dañado, peligroso, contaminante, depredador o intelectualmente incapaz</strong>.</p>
-        <div class="zxy-moves">
-          <div class="zxy-move"><b>Patologiza</b><span>“cáncer”, “atrofiada”: convierte conflictos institucionales en enfermedad o disfunción.</span></div>
-          <div class="zxy-move"><b>Animaliza</b><span>“ratas”, “sapos”, “culebras”, “animales ponzoñosos”: borra la condición humana o profesional del blanco.</span></div>
-          <div class="zxy-move"><b>Representa como parásito</b><span>“chupan”, “ordeñan”: el adversario vive de extraer recursos de una institución o del Estado.</span></div>
-          <div class="zxy-move"><b>Degrada por suciedad o desecho</b><span>“escoria”, “trapo viejo”: desplaza al blanco hacia objetos o residuos sin valor.</span></div>
-          <div class="zxy-move"><b>Criminaliza</b><span>“cómplices”, “capo”: traslada la confrontación política o institucional al campo del delito.</span></div>
-          <div class="zxy-move"><b>Descalifica la capacidad cognitiva</b><span>“mentes absurdas”, “neuronas”, “estupidez”: el desacuerdo se presenta como incapacidad de razonar.</span></div>
-        </div>
-      </article>
       <article class="zxy-person zxy-laura">
         <h2 class="zxy-person-title">Laura Fernández</h2>
         <div class="zxy-person-role">Presidenta, 2026–2030</div>
@@ -321,7 +346,20 @@
           <div class="zxy-move"><b>Estigmatiza ideológicamente</b><span>“partida de comunistas”, “ambientalistas de caviar”: clasifica al adversario dentro de una identidad política descalificada.</span></div>
         </div>
       </article>
-    </div>
+    <article class="zxy-person zxy-chaves">
+        <h2 class="zxy-person-title">Rodrigo Chaves</h2>
+        <div class="zxy-person-role">Presidente, 2022–2026 · Ministro de la Presidencia, 2026</div>
+        <p class="zxy-thesis">El adversario aparece como algo <strong>dañado, peligroso, contaminante, depredador o intelectualmente incapaz</strong>.</p>
+        <div class="zxy-moves">
+          <div class="zxy-move"><b>Patologiza</b><span>“cáncer”, “atrofiada”: convierte conflictos institucionales en enfermedad o disfunción.</span></div>
+          <div class="zxy-move"><b>Animaliza</b><span>“ratas”, “sapos”, “culebras”, “animales ponzoñosos”: borra la condición humana o profesional del blanco.</span></div>
+          <div class="zxy-move"><b>Representa como parásito</b><span>“chupan”, “ordeñan”: el adversario vive de extraer recursos de una institución o del Estado.</span></div>
+          <div class="zxy-move"><b>Degrada por suciedad o desecho</b><span>“escoria”, “trapo viejo”: desplaza al blanco hacia objetos o residuos sin valor.</span></div>
+          <div class="zxy-move"><b>Criminaliza</b><span>“cómplices”, “capo”: traslada la confrontación política o institucional al campo del delito.</span></div>
+          <div class="zxy-move"><b>Descalifica la capacidad cognitiva</b><span>“mentes absurdas”, “neuronas”, “estupidez”: el desacuerdo se presenta como incapacidad de razonar.</span></div>
+        </div>
+      </article>
+      </div>
     <div class="zxy-shared"><h3>Un recurso compartido: la estigmatización ideológica</h3><p>Los dos hablantes emplean etiquetas contra “comunistas” o sectores asociados a la izquierda. En Chaves aparece ya en 2023 (“los comunistas son por definición hipócritas y mentirosos”); en Fernández ocupa un lugar visible durante 2026, ligada también a protestas y oposición al Ejecutivo.</p></div>
     <p class="zxy-note">Esta lectura resume patrones del corpus analizado; los ejemplos muestran recursos recurrentes y no sustituyen la totalidad de ocurrencias registradas. La escala de personalización es cualitativa: no representa un porcentaje estadístico.</p>
   </section>
@@ -403,7 +441,7 @@ const zxyData={
   actors:["Prensa crítica","Élites económicas","Funcionarios de administraciones previas","Órganos desconcentrados","Pensiones de lujo"],
   count:"14 ocurrencias",
   change:"Menos frentes y mayor peso de blancos colectivos",
-  construction:"Privilegio · plaga · suciedad · amenaza",
+  construction:"<strong>Privilegio:</strong> presenta al adversario como beneficiario de ventajas indebidas · <strong>Plaga:</strong> lo representa como una presencia que se expande y daña · <strong>Suciedad:</strong> lo degrada mediante imágenes de desecho · <strong>Amenaza:</strong> lo presenta como un peligro para el país o las instituciones",
   personalization:"Colectivo",
   examples:[
     {date:"22 JUN. 2022",quote:"“...algún medio pervertido...”",target:"Prensa fiscalizadora",context:"Respuesta a consultas periodísticas sobre causas y contratación de abogados."},
@@ -418,7 +456,7 @@ const zxyData={
   actors:["Prensa crítica","Frente Amplio","Sindicatos y gremios de la CCSS","Opositores fiscales","Exjerarcas"],
   count:"13 ocurrencias",
   change:"Predominan prensa, gremios e identidades políticas",
-  construction:"Despojo · parasitismo · corrupción",
+  construction:"<strong>Despojo:</strong> presenta al adversario como quien se apropia de recursos · <strong>Parasitismo:</strong> lo representa como alguien que vive de extraer o consumir · <strong>Corrupción:</strong> lo vincula con prácticas deshonestas",
   personalization:"Colectivo",
   examples:[
     {date:"17 MAY. 2023",quote:"“...ya no chupan tanto... o ya no se alimentan tanto del presupuesto...”",target:"Medios de comunicación críticos",context:"Discusión sobre la reducción de pauta publicitaria estatal."},
@@ -433,7 +471,7 @@ const zxyData={
   actors:["Asamblea Legislativa","Comisiones legislativas","Diputados de oposición","Rodrigo Arias","Prensa crítica"],
   count:"20 ocurrencias",
   change:"El conflicto se concentra principalmente en el frente legislativo",
-  construction:"Ridículo · espectáculo · incapacidad",
+  construction:"<strong>Ridículo:</strong> reduce al adversario mediante burla · <strong>Espectáculo:</strong> presenta la acción política como circo o puesta en escena · <strong>Incapacidad:</strong> cuestiona su capacidad para razonar o actuar",
   personalization:"Mixto",
   examples:[
     {date:"29 MAY. 2024",quote:"“...proyectos absurdos, de mentes absurdas y ridículas...”",target:"Diputados del Frente Amplio",context:"Crítica a iniciativas legislativas impulsadas por la oposición."},
@@ -448,7 +486,7 @@ const zxyData={
   actors:["Fiscalía General","OIJ","Corte Suprema","Carlos Díaz","Randal Zúñiga","Orlando Aguirre","Patricia Solano"],
   count:"23 ocurrencias",
   change:"Menos frentes, con fuerte concentración en jerarcas judiciales",
-  construction:"Peligro · mafia · veneno · incompetencia",
+  construction:"<strong>Peligro:</strong> presenta al adversario como una amenaza · <strong>Mafia:</strong> lo asocia con redes ilegítimas o criminales · <strong>Veneno:</strong> usa imágenes de daño o contaminación · <strong>Incompetencia:</strong> cuestiona su capacidad para ejercer el cargo",
   personalization:"Individualizado",
   examples:[
     {date:"14 MAY. 2025",quote:"“...son incompetentes arbitrarios...”",target:"Carlos Díaz y Randal Zúñiga",context:"Respuesta a allanamientos y actuaciones judiciales contra integrantes del Ejecutivo."},
@@ -463,7 +501,7 @@ const zxyData={
   actors:["Poder Judicial","Oposición legislativa","Frente Amplio / izquierda","Protesta social","Prensa crítica","Movimientos sociales"],
   count:"52 Fernández · 14 Chaves",
   change:"Mayor diversidad de frentes y tipos de adversario",
-  construction:"Infantilización · ficción · ideología · criminalización",
+  construction:"<strong>Infantilización:</strong> presenta al adversario como inmaduro o caprichoso · <strong>Ficción:</strong> lo ubica fuera de la realidad · <strong>Ideología:</strong> lo descalifica por su identidad política · <strong>Criminalización:</strong> lo asocia con conductas delictivas",
   personalization:"Mixto",
   examples:[
     {date:"20 MAY. 2026 · FERNÁNDEZ",quote:"“Parece que viven en Narnia...”",target:"Autoridades del Poder Judicial",context:"Reunión y choque con jerarcas judiciales por seguridad e impunidad."},
@@ -513,20 +551,20 @@ function zxyRender(year){
       <p class="zxy-summary">${d.summary}</p>
     </div>
 
-    <div class="zxy-actors-title">Actores que concentran la confrontación</div>
+    <div class="zxy-actors-title">Principales blancos de los ataques</div>
     <div class="zxy-actor-chips">${d.actors.map(a=>`<span class="zxy-chip">${a}</span>`).join("")}</div>
 
     <div class="zxy-data-grid">
       <div class="zxy-data-card">
-        <div class="zxy-data-label">Agresión verbal registrada</div>
+        <div class="zxy-data-label">Cantidad de frases agresivas registradas</div>
         <div class="zxy-data-value">${d.count}</div>
       </div>
       <div class="zxy-data-card">
         <div class="zxy-data-label">Qué cambia este año</div>
         <div class="zxy-data-value">${d.change}</div>
       </div>
-      <div class="zxy-data-card">
-        <div class="zxy-data-label">Cómo aparece el adversario</div>
+      <div class="zxy-data-card zxy-data-card-wide">
+        <div class="zxy-data-label">Características comunes de las frases</div>
         <div class="zxy-data-value">${d.construction}</div>
       </div>
     </div>
@@ -568,9 +606,9 @@ function zxyUpdateTabIndicators(){
   zxyTabRight.classList.toggle("zxy-show",canRight);
   zxyTabsHint.classList.toggle("zxy-hidden",!canRight);
 }
-zxyModeTabs.addEventListener("scroll",zxyUpdateTabIndicators,{passive:true});
-zxyTabLeft.addEventListener("click",()=>zxyModeTabs.scrollBy({left:-Math.max(150,zxyModeTabs.clientWidth*.7),behavior:"smooth"}));
-zxyTabRight.addEventListener("click",()=>zxyModeTabs.scrollBy({left:Math.max(150,zxyModeTabs.clientWidth*.7),behavior:"smooth"}));
+if(zxyModeTabs) zxyModeTabs.addEventListener("scroll",zxyUpdateTabIndicators,{passive:true});
+if(zxyTabLeft) zxyTabLeft.addEventListener("click",()=>zxyModeTabs.scrollBy({left:-Math.max(150,zxyModeTabs.clientWidth*.7),behavior:"smooth"}));
+if(zxyTabRight) zxyTabRight.addEventListener("click",()=>zxyModeTabs.scrollBy({left:Math.max(150,zxyModeTabs.clientWidth*.7),behavior:"smooth"}));
 window.addEventListener("resize",zxyUpdateTabIndicators);
 
 document.querySelectorAll(".zxy-mode-tab").forEach(tab=>{
