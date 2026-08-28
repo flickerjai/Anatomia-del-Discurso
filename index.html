@@ -296,13 +296,163 @@
     color:#27323b;
   }
 
+
+  /* Carrusel de todas las frases registradas */
+  .zxy-quotes-section{margin-top:4px}
+  .zxy-quotes-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:0 0 9px;
+  }
+  .zxy-quotes-title{
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:#35424c;
+  }
+  .zxy-quotes-tools{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex:0 0 auto;
+  }
+  .zxy-quotes-counter{
+    min-width:42px;
+    text-align:center;
+    font-size:10px;
+    color:#69747d;
+    font-weight:700;
+  }
+  .zxy-quote-arrow{
+    width:34px;
+    height:34px;
+    border:1px solid #cdd6dd;
+    border-radius:50%;
+    background:#fff;
+    color:#11497d;
+    font-size:20px;
+    line-height:1;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+  .zxy-quote-arrow:disabled{
+    opacity:.3;
+    cursor:default;
+  }
+  .zxy-examples{
+    display:flex !important;
+    grid-template-columns:none !important;
+    gap:10px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:1px 2px 10px;
+  }
+  .zxy-examples::-webkit-scrollbar{display:none}
+  .zxy-example{
+    flex:0 0 min(84%,300px);
+    min-height:165px !important;
+    scroll-snap-align:start;
+    background:#fff;
+    border:1px solid #dde4ea;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+  }
+  .zxy-quote{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:17px;
+    line-height:1.3;
+    margin:0 0 13px;
+    color:#111;
+  }
+  .zxy-carousel-hint{
+    display:none;
+    margin:0 0 8px;
+    font-size:9px;
+    color:#7b858d;
+    font-weight:700;
+    text-align:right;
+  }
+  @media(max-width:639px){
+    .zxy-example{flex-basis:88%;min-height:155px !important}
+    .zxy-carousel-hint{display:block}
+    .zxy-quotes-title{font-size:10px}
+  }
+  @media(min-width:640px){
+    .zxy-example{flex-basis:285px}
+  }
+
+
+  .zxy-meta{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .zxy-card-date{
+    color:#6d7880;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.05em;
+  }
+  .zxy-speaker-tag{
+    display:inline-block;
+    padding:3px 6px;
+    border-radius:999px;
+    font-size:8px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:.05em;
+  }
+  .zxy-speaker-fernandez{
+    background:#e8f1f8;
+    color:#11497d;
+    border:1px solid #b9cee0;
+  }
+  .zxy-speaker-chaves{
+    background:#f3eee1;
+    color:#765514;
+    border:1px solid #d8c69c;
+  }
+
+
+  .zxy-count-main{
+    display:block;
+  }
+  .zxy-count-detail{
+    display:block;
+    margin-top:5px;
+    font-size:10px;
+    line-height:1.35;
+    font-weight:600;
+    color:#66727b;
+  }
+
+
+  .zxy-role-secondary{
+    display:block;
+    margin-top:3px;
+    font-weight:400;
+  }
+
 </style>
 </head>
 <body style="margin:0;background:#fff;">
 <main class="zxy-viz">
   <div class="zxy-eyebrow"><span class="zxy-interactive-badge">Visualización interactiva</span><span>Análisis del discurso político · 2022–2026</span></div>
-  <h1 class="zxy-title">Así evolucionaron los ataques, los insultos y el lenguaje de confrontación de Rodrigo Chaves y Laura Fernández</h1>
-  <p class="zxy-deck"><em>La Nación</em> analizó conferencias de prensa del Poder Ejecutivo para seguir cómo cambiaron, año a año, los blancos de la confrontación y las formas de descalificar al adversario entre el inicio del gobierno de Rodrigo Chaves y los primeros meses de la administración de Laura Fernández.</p>
+  <h1 class="zxy-title">Así evolucionaron los ataques, los insultos y el lenguaje de confrontación de Laura Fernández y Rodrigo Chaves</h1>
+  <p class="zxy-deck"><em>La Nación</em> analizó conferencias de prensa del Poder Ejecutivo para identificar qué frases agresivas se utilizaron, qué recursos de confrontación se repitieron y contra quiénes se dirigieron durante los primeros meses del gobierno de Laura Fernández y, hacia atrás, cómo evolucionó ese discurso durante el anterior gobierno de Rodrigo Chaves.</p>
 
   <div class="zxy-period-box">
     <div class="zxy-period-label">Periodo analizado</div>
@@ -388,7 +538,7 @@
         <div>
           <div class="zxy-transform-stage">Concentración judicial</div>
           <div class="zxy-transform-title">Fiscalía, OIJ, Corte y jerarcas concretos</div>
-          <div class="zxy-transform-copy">Al retroceder un año, disminuye la variedad de frentes y el Poder Judicial concentra la confrontación, con ataques directos a Carlos Díaz, Randal Zúñiga, Orlando Aguirre y Patricia Solano.</div>
+          <div class="zxy-transform-copy">Al retroceder un año, disminuye la variedad de frentes y el Poder Judicial concentra la confrontación, con ataques directos a Carlos Díaz, Rándall Zúñiga, Orlando Aguirre y Patricia Solano.</div>
         </div>
       </div>
       <div class="zxy-transform-arrow">↓</div>
@@ -439,75 +589,55 @@ const zxyData={
   title:"En 2022, el repertorio era más acotado y colectivo",
   summary:"Al llegar a 2022, el punto inicial de la comparación, aparecen menos frentes y predominan blancos colectivos: prensa crítica, actores asociados a élites económicas y estructuras del Estado presentadas como privilegiadas o disfuncionales.",
   actors:["Prensa crítica","Élites económicas","Funcionarios de administraciones previas","Órganos desconcentrados","Pensiones de lujo"],
-  count:"14 ocurrencias",
+  count:"10 frases",
   change:"Menos frentes y mayor peso de blancos colectivos",
   construction:"<strong>Privilegio:</strong> presenta al adversario como beneficiario de ventajas indebidas · <strong>Plaga:</strong> lo representa como una presencia que se expande y daña · <strong>Suciedad:</strong> lo degrada mediante imágenes de desecho · <strong>Amenaza:</strong> lo presenta como un peligro para el país o las instituciones",
   personalization:"Colectivo",
-  examples:[
-    {date:"22 JUN. 2022",quote:"“...algún medio pervertido...”",target:"Prensa fiscalizadora",context:"Respuesta a consultas periodísticas sobre causas y contratación de abogados."},
-    {date:"13 JUL. 2022",quote:"“...estos señores feudales autocoronados...”",target:"Directivos de un medio de comunicación",context:"Crisis por el cierre temporal de Parque Viva y señalamientos sobre privilegios."},
-    {date:"3 AGO. 2022",quote:"“Hay rinocerontes, hay mapaches, hay ratas... la fauna.”",target:"Prensa crítica",context:"Descalificación de medios a los que el presidente dijo no creer."}
-  ]
+  examples:[{"date":"22 JUN. 2022 · CHAVES","quote":"“Canallas sobran”","target":"Periodistas","context":"Pronunciada en la última pregunta de la conferencia de prensa."},{"date":"22 JUN. 2022 · CHAVES","quote":"“Cuchitriles”","target":"Edificios públicos alquilados","context":"Esta frase se ubica en el segmento donde el presidente y la Ministra de Educación (Anna Katharina Müller) exponen el inventario de alquileres del Estado."},{"date":"22 JUN. 2022 · CHAVES","quote":"“Medio pervertido”","target":"Prensa / un medio de comunicación","context":"Se encuentra en la ronda de preguntas de la prensa, específicamente al responder al periodista Alessandro Solís de AmeliaRueda.com, quien le cuestionó de forma directa si existía…"},{"date":"13 JUL. 2022 · CHAVES","quote":"“Esbirro / servil / corrupto”","target":"Funcionarios que habrían favorecido a élites","context":"Hacia el cierre del discurso presidencial sobre el Parque Viva, justo antes de pasar a la ronda de preguntas de los corresponsales regionales."},{"date":"13 JUL. 2022 · CHAVES","quote":"“Señores feudales autocoronados”","target":"Directivos y propietarios de La Nación","context":"Se trata de una de las declaraciones más vehementes de la conferencia."},{"date":"3 AGO. 2022 · CHAVES","quote":"“El club de amigos de Tricolín”","target":"Comisión Nacional de Vacunación y Epidemiología","context":"Ocurre a la mitad de la conferencia, en un segmento largo dedicado a la política de vacunación del COVID-19."},{"date":"3 AGO. 2022 · CHAVES","quote":"“Ese cáncer”","target":"Pensiones de lujo","context":"Se encuentra en la primera mitad de la conferencia de prensa, en el segmento de anuncios oficiales."},{"date":"3 AGO. 2022 · CHAVES","quote":"“Ratas”","target":"Prensa crítica","context":"En la ronda de diálogo interno posterior a la intervención de la Ministra Joselyn Chacón."},{"date":"10 AGO. 2022 · CHAVES","quote":"“Escoria”","target":"Pensiones de lujo","context":"Se encuentra de manera continua en la misma respuesta de la pregunta anterior sobre la \"Señora de Purral\"."},{"date":"10 AGO. 2022 · CHAVES","quote":"“Ticos con corona”","target":"Beneficiarios de pensiones extraordinarias","context":"Pronunciada durante la ronda de preguntas de los reporteros."}]
 },
 "2023":{
   role:"Rodrigo Chaves · presidente",
   title:"En 2023, los blancos eran prensa, izquierda y gremios",
   summary:"En 2023, el repertorio es más acotado que en los años posteriores: la confrontación se dirige sobre todo hacia la prensa crítica, sindicatos y gremios de la CCSS, además de una oposición ideológica identificada con el Frente Amplio y el comunismo.",
   actors:["Prensa crítica","Frente Amplio","Sindicatos y gremios de la CCSS","Opositores fiscales","Exjerarcas"],
-  count:"13 ocurrencias",
+  count:"11 frases",
   change:"Predominan prensa, gremios e identidades políticas",
   construction:"<strong>Despojo:</strong> presenta al adversario como quien se apropia de recursos · <strong>Parasitismo:</strong> lo representa como alguien que vive de extraer o consumir · <strong>Corrupción:</strong> lo vincula con prácticas deshonestas",
   personalization:"Colectivo",
-  examples:[
-    {date:"17 MAY. 2023",quote:"“...ya no chupan tanto... o ya no se alimentan tanto del presupuesto...”",target:"Medios de comunicación críticos",context:"Discusión sobre la reducción de pauta publicitaria estatal."},
-    {date:"17 MAY. 2023",quote:"“...la ordeñan hasta la última gota...”",target:"Sindicatos y gremios médicos de la CCSS",context:"Conflicto por salarios, pluses y finanzas de la Caja."},
-    {date:"31 MAY. 2023",quote:"“Los comunistas son por definición hipócritas y mentirosos.”",target:"Frente Amplio",context:"Pulso político con la bancada de izquierda por su oposición a proyectos del Ejecutivo."}
-  ]
+  examples:[{"date":"10 MAY. 2023 · CHAVES","quote":"“una patraña absurda”","target":"Periodistas, analistas y críticos de la política inflacionaria","context":"Segmento final de la ronda de preguntas."},{"date":"17 MAY. 2023 · CHAVES","quote":"“asesinatos políticos que ellos cometieron”","target":"Medios de comunicación y grupos empresariales de prensa aludidos por Chaves","context":"Penúltima pregunta de la ronda de medios."},{"date":"17 MAY. 2023 · CHAVES","quote":"“la ordeñan hasta la última gota”","target":"Sindicatos y gremios de salud","context":"Hacia el final del bloque de anuncios interinstitucionales."},{"date":"17 MAY. 2023 · CHAVES","quote":"“ya no chupan tanto... o ya no se alimentan tanto”","target":"Consorcios de prensa tradicionales","context":"En la sección intermedia del bloque de preguntas de medios nacionales."},{"date":"24 MAY. 2023 · CHAVES","quote":"“mentiras tan patrañas y falsificaciones”","target":"Diputados y opositores que lo acusaban de romper promesas de campaña","context":"Inmediatamente posterior al discurso del punto anterior."},{"date":"24 MAY. 2023 · CHAVES","quote":"“voceros a sueldo”","target":"Abogados, analistas y cámaras empresariales críticas del control de evasión","context":"En los primeros 15-20 minutos de la conferencia de prensa."},{"date":"31 MAY. 2023 · CHAVES","quote":"“hipocresía que les caracteriza”","target":"Comportamiento político de la fracción legislativa de izquierda","context":"Continuación directa del párrafo de la cita anterior, dentro de la misma respuesta al reportero Marvin Rojas."},{"date":"31 MAY. 2023 · CHAVES","quote":"“los comunistas son por definición hipócritas y mentirosos”","target":"Diputados y militantes de la fracción parlamentaria del Frente Amplio","context":"En el bloque intermedio de la ronda de preguntas de los medios nacionales."},{"date":"7 JUN. 2023 · CHAVES","quote":"“ticos con corona”","target":"Empresarios y exjerarcas con causas penales abiertas en libertad (Baruch, Aldesa, etc.)","context":"En la ronda de preguntas de medios nacionales."},{"date":"7 JUN. 2023 · CHAVES","quote":"“Cada piedra que uno levanta se encuentra un sapo, una culebra o algo así de feo, un alacrán”","target":"Problemas e irregularidades que Chaves dijo encontrar al revisar la ruta 32","context":"Chaves introdujo con esa metáfora una auditoría a la ruta 32, que describió como atrasada y mucho más cara de lo previsto."},{"date":"9 AGO. 2023 · CHAVES","quote":"“salieron los expresidentes a escupir el pabellón nacional diciendo que... la libertad de prensa... merece estar en el mismo paquete que... Nicaragua, Cuba y Venezuela”","target":"Laura Chinchilla, Óscar Arias y exmandatarios críticos de la libertad de prensa","context":"Aludió a expresidentes que habían criticado la situación de la libertad de prensa en Costa Rica y comparado el país con Nicaragua, Cuba y Venezuela."}]
 },
 "2024":{
   role:"Rodrigo Chaves · presidente",
   title:"En 2024, el foco recaía sobre la Asamblea Legislativa",
   summary:"En 2024, al seguir retrocediendo, la confrontación se concentra principalmente en el Congreso, sus comisiones y diputados de oposición. El control político aparece representado como espectáculo, incapacidad o distorsión.",
   actors:["Asamblea Legislativa","Comisiones legislativas","Diputados de oposición","Rodrigo Arias","Prensa crítica"],
-  count:"20 ocurrencias",
+  count:"17 frases",
   change:"El conflicto se concentra principalmente en el frente legislativo",
   construction:"<strong>Ridículo:</strong> reduce al adversario mediante burla · <strong>Espectáculo:</strong> presenta la acción política como circo o puesta en escena · <strong>Incapacidad:</strong> cuestiona su capacidad para razonar o actuar",
   personalization:"Mixto",
-  examples:[
-    {date:"29 MAY. 2024",quote:"“...proyectos absurdos, de mentes absurdas y ridículas...”",target:"Diputados del Frente Amplio",context:"Crítica a iniciativas legislativas impulsadas por la oposición."},
-    {date:"12 JUN. 2024",quote:"“...el comicirco del Sinart...”",target:"Comisión legislativa investigadora del SINART",context:"Respuesta al control político e interrogatorios de la comisión."},
-    {date:"12 JUN. 2024",quote:"“...los tres chiflados...”",target:"Jefaturas de fracción de oposición",context:"Ridiculización de apariciones conjuntas de líderes legislativos opositores."}
-  ]
+  examples:[{"date":"15 MAY. 2024 · CHAVES","quote":"“jugando de Santa o de no sé qué”","target":"Irene Cañas","context":"Es la continuación directa del segmento anterior sobre la crisis de energía y el ICE."},{"date":"15 MAY. 2024 · CHAVES","quote":"“unos jetones”","target":"Críticos de la situación financiera del ICE","context":"En la primera mitad de la ronda de preguntas de los medios de prensa, durante el careo con los periodistas sobre la alerta de racionamiento eléctrico."},{"date":"29 MAY. 2024 · CHAVES","quote":"“proyectos absurdos, de mentes absurdas y ridículas”","target":"Diputados / bancada del Frente Amplio","context":"Segmento de la ronda de preguntas, en respuesta a la consulta sobre proyectos de ley con perspectiva de género e intervenciones médicas en menores de edad promovidos por la bancad…"},{"date":"12 JUN. 2024 · CHAVES","quote":"“abrazos para los que dan balazos”","target":"Patricia Solano y Sala Tercera","context":"Se sitúa a continuación del bloque anterior de seguridad. Chaves pronuncia este \"eslogan\" retórico de forma enérgica para criticar las resoluciones de la Sala Penal."},{"date":"12 JUN. 2024 · CHAVES","quote":"“comicirco / circomisión”","target":"Comisión investigadora del SINART","context":"Ocurre en la primera pregunta de la ronda de medios."},{"date":"12 JUN. 2024 · CHAVES","quote":"“comisión absolutamente atrofiada”","target":"Comisión de Seguridad y Narcotráfico","context":"En la apertura de la conferencia de prensa, al introducir el bloque de seguridad pública y combate a los homicidios junto al ministro Mario Zamora."},{"date":"12 JUN. 2024 · CHAVES","quote":"“la diputada sagrada / manifestante de ultramillonarios”","target":"Vanessa Castro y Johana Obando","context":"Continuación directa de la respuesta a José Luis Rodríguez de Trivisión sobre el informe del SINART y el contrato del BCIE."},{"date":"12 JUN. 2024 · CHAVES","quote":"“los tres chiflados”","target":"Jefes de fracción de oposición","context":"Hacia el final del bloque de anuncios de pymes e INA, justo antes de dar inicio formal a la ronda de preguntas de los periodistas presenciales."},{"date":"12 JUN. 2024 · CHAVES","quote":"“monumental ese nivel de hipocresía”","target":"Dinora Barquero","context":"En la misma respuesta de la pregunta de Trivisión, cuando Chaves y el ministro de Comunicación asocian los comités editoriales actuales con las consultorías del pasado de figuras…"},{"date":"12 JUN. 2024 · CHAVES","quote":"“tres medios titiriteros y mentirosos”","target":"La Nación, Canal 7 y CR Hoy","context":"Es el cierre absoluto de la extensa primera respuesta sobre el SINART, justo antes de cederle el micrófono a Marvin Rojas de La Hora de Juanito Mora."},{"date":"19 JUN. 2024 · CHAVES","quote":"“la tiranía de la institucionalidad / tiranía perfecta”","target":"Instituciones y controles constitucionales que limitan la acción del Ejecutivo","context":"En la sección intermedia de la ronda de preguntas, respondiendo a una consulta de un corresponsal regional sobre la carta firmada por siete expresidentes que denunciaban un debili…"},{"date":"19 JUN. 2024 · CHAVES","quote":"“nefasto y asqueroso documento”","target":"Memorándum del Miedo de 2007","context":"Al inicio del bloque de preguntas de la prensa, durante su argumentación en defensa de la Ley Jaguar de Referéndum frente a las objeciones de la Contralora Marta Acosta."},{"date":"17 JUL. 2024 · CHAVES","quote":"“las neuronas... parecieran estar no funcionando muy bien”","target":"Ariel Robles","context":"Al final de la ronda de preguntas de los medios nacionales."},{"date":"17 JUL. 2024 · CHAVES","quote":"“que siga siendo el ridículo que hace”","target":"Ariel Robles","context":"Cierre inmediato y contundente del tema anterior sobre la fiesta de Navidad y la tala ilegal, justo antes de darle la palabra a Roger Espinoza de OPA Central Noticias."},{"date":"31 JUL. 2024 · CHAVES","quote":"“el capo del ecosistema del cambalache”","target":"Rodrigo Arias Sánchez","context":"Chaves usó “cambalache” para describir lo que atribuyó a una lógica de intercambio político: “yo te doy, vos me das”."},{"date":"31 JUL. 2024 · CHAVES","quote":"“un árbol caído políticamente”","target":"Rodrigo Arias Sánchez","context":"Esta cita se encuentra entrelazada y de forma consecutiva dentro de la misma respuesta larga al periodista José Luis Rodríguez de Trivisión (punto 16 anterior)."},{"date":"7 AGO. 2024 · CHAVES","quote":"“un montón de charlatanes”","target":"Opositores a la Ley Jaguar","context":"En la ronda de diálogo final con la Ministra de la Presidencia, Laura Fernández, al concluir el desglose de los precedentes constitucionales del Poder Judicial y el fideicomiso de…"}]
 },
 "2025":{
   role:"Rodrigo Chaves · presidente",
   title:"Un año antes, la confrontación se concentraba en el Poder Judicial",
-  summary:"Al retroceder a 2025, el panorama se estrecha: la Fiscalía, el OIJ y la Corte concentran buena parte de la confrontación. Dentro de ese frente judicial, las descalificaciones recaen además sobre jerarcas concretos como Carlos Díaz, Randal Zúñiga, Orlando Aguirre y Patricia Solano.",
-  actors:["Fiscalía General","OIJ","Corte Suprema","Carlos Díaz","Randal Zúñiga","Orlando Aguirre","Patricia Solano"],
-  count:"23 ocurrencias",
+  summary:"Al retroceder a 2025, el panorama se estrecha: la Fiscalía, el OIJ y la Corte concentran buena parte de la confrontación. Dentro de ese frente judicial, las descalificaciones recaen además sobre jerarcas concretos como Carlos Díaz, Rándall Zúñiga, Orlando Aguirre y Patricia Solano.",
+  actors:["Fiscalía General","OIJ","Corte Suprema","Carlos Díaz","Rándall Zúñiga","Orlando Aguirre","Patricia Solano"],
+  count:"18 frases",
   change:"Menos frentes, con fuerte concentración en jerarcas judiciales",
   construction:"<strong>Peligro:</strong> presenta al adversario como una amenaza · <strong>Mafia:</strong> lo asocia con redes ilegítimas o criminales · <strong>Veneno:</strong> usa imágenes de daño o contaminación · <strong>Incompetencia:</strong> cuestiona su capacidad para ejercer el cargo",
   personalization:"Individualizado",
-  examples:[
-    {date:"14 MAY. 2025",quote:"“...son incompetentes arbitrarios...”",target:"Carlos Díaz y Randal Zúñiga",context:"Respuesta a allanamientos y actuaciones judiciales contra integrantes del Ejecutivo."},
-    {date:"14 MAY. 2025",quote:"“Uno no le da a los animales ponzoñosos.”",target:"Jerarcas del Ministerio Público, OIJ y Poder Judicial",context:"Mismo episodio de confrontación con autoridades de investigación penal."},
-    {date:"25 JUN. 2025",quote:"“Orlando Aguirre, ¿no le da vergüenza a usted?”",target:"Orlando Aguirre",context:"Ataque individual al presidente de la Corte por decisiones vinculadas al fiscal general."}
-  ]
+  examples:[{"date":"14 MAY. 2025 · CHAVES","quote":"“animales ponzoñosos”","target":"Jerarcas judiciales aludidos en el mismo segmento","context":"Cierre absoluto del discurso del veto de ley."},{"date":"14 MAY. 2025 · CHAVES","quote":"“es un jetón”","target":"Luis Amador","context":"En la ronda de preguntas de la prensa nacional."},{"date":"14 MAY. 2025 · CHAVES","quote":"“estulticias, es decir, estupideces o actos de mala fe”","target":"Carlos Díaz y Rándall Zúñiga","context":"Segmento del mensaje final de la conferencia de prensa."},{"date":"14 MAY. 2025 · CHAVES","quote":"“incompetentes arbitrarios”","target":"Jerarcas de Fiscalía y OIJ","context":"Se ubica en la primera mitad de la conferencia de prensa."},{"date":"14 MAY. 2025 · CHAVES","quote":"“un demagogo y un mentiroso”","target":"Rándall Zúñiga","context":"Hacia el final de la ronda de preguntas."},{"date":"4 JUN. 2025 · CHAVES","quote":"“bajeza y vulgaridad”","target":"Leslye Bojorges y Montserrat Ruiz","context":"En la ronda de preguntas de medios regionales."},{"date":"4 JUN. 2025 · CHAVES","quote":"“el juegavivo y el vivazo / cometer sinvergüenzadas”","target":"Michael Álvarez, alcalde de Paraíso","context":"Hacia la mitad de la conferencia."},{"date":"4 JUN. 2025 · CHAVES","quote":"“un bufón”","target":"Leslye Bojorges","context":"Se ubica en el segmento de transición hacia la ronda de preguntas, justo después de que el mandatario concluyera los anuncios de los premios de turismo del ICT."},{"date":"18 JUN. 2025 · CHAVES","quote":"“sombreros muy grandes y cabezas chiquitas”","target":"Ganaderos / críticos del areteo","context":"Segmento final de la ronda de preguntas. Ocurre como respuesta al periodista Alejandro Urbina de Thivisión sobre el lavado de dinero en subastas ganaderas detectado por la DEA."},{"date":"25 JUN. 2025 · CHAVES","quote":"“la que no tiene vergüenza”","target":"Corte Plena","context":"Segmento largo del discurso presidencial de apertura."},{"date":"25 JUN. 2025 · CHAVES","quote":"“perdió la capacidad de sentir vergüenza / mucho menos temor a Dios”","target":"Orlando Aguirre","context":"Continuación directa del párrafo de la \"carita feliz\" (punto 12 anterior) durante su crítica a las resoluciones de la Corte."},{"date":"2 JUL. 2025 · CHAVES","quote":"“hizo el ridículo, mintió... muy hipocritón”","target":"Rándall Zúñiga","context":"Bloque central de anuncios."},{"date":"2 JUL. 2025 · CHAVES","quote":"“la Mata Hari criolla, la espía criolla”","target":"Patricia Navarro","context":"Se sitúa de manera continua dentro del discurso final sobre el caso del contrato publicitario financiado por el BCIE."},{"date":"2 JUL. 2025 · CHAVES","quote":"“las mentiras y los ridículos de Zúñiga y los discípulos de Ignacio Santos”","target":"Rándall Zúñiga y periodistas de Canal 7","context":"Hacia el final del mensaje presidencial de cierre, antes de dar inicio a la ronda de preguntas de medios nacionales."},{"date":"30 JUL. 2025 · CHAVES","quote":"“bajeza y la suciedad de sus almas / gente tan baja, tan sucia”","target":"Diputadas, Leonardo Garnier y otros críticos","context":"Ocurre al final de la proyección del video de \"Dato mata mentira\" donde los padres de la menor de edad desmienten cualquier morbo o falta de respeto del presidente durante su salu…"},{"date":"30 JUL. 2025 · CHAVES","quote":"“mentes que sí son realmente perversas”","target":"Personas que criticaron al Gobierno por el episodio ocurrido en Guanacaste","context":"En el bloque de cierre de anuncios del Consejo de Gobierno. Chaves introduce este segmento justo después de comunicar la reestructuración de su gabinete ministerial por renuncias."},{"date":"6 AGO. 2025 · CHAVES","quote":"“capataz de cañal / patrón de finca / autoritarismo populista”","target":"Rodrigo Arias Sánchez","context":"En el mensaje final de la conferencia."},{"date":"6 AGO. 2025 · CHAVES","quote":"“chanchada / alcalde que no tiene perdón de Dios”","target":"Randall Vega, alcalde de Naranjo","context":"En la primera mitad de la conferencia."}]
 },
 "2026":{
-  role:"Laura Fernández · presidente (Rodrigo Chaves · ministro de la Presidencia)",
+  role:"Laura Fernández · presidente<br><span class=\"zxy-role-secondary\">(Rodrigo Chaves · ministro de la Presidencia)</span>",
   title:"El escenario más amplio: justicia, oposición, protesta, prensa y movimientos",
   summary:"En 2026 aparece el conjunto más diverso de blancos del periodo analizado: el Poder Judicial comparte espacio con la oposición política, la protesta social, la prensa crítica y los movimientos sociales. Es el punto de partida de esta lectura retrospectiva.",
   actors:["Poder Judicial","Oposición legislativa","Frente Amplio / izquierda","Protesta social","Prensa crítica","Movimientos sociales"],
-  count:"52 Fernández · 14 Chaves",
+  count:"<span class=\"zxy-count-main\">37 frases</span><span class=\"zxy-count-detail\">31 de Laura Fernández · 6 de Rodrigo Chaves</span>",
   change:"Mayor diversidad de frentes y tipos de adversario",
   construction:"<strong>Infantilización:</strong> presenta al adversario como inmaduro o caprichoso · <strong>Ficción:</strong> lo ubica fuera de la realidad · <strong>Ideología:</strong> lo descalifica por su identidad política · <strong>Criminalización:</strong> lo asocia con conductas delictivas",
   personalization:"Mixto",
-  examples:[
-    {date:"20 MAY. 2026 · FERNÁNDEZ",quote:"“Parece que viven en Narnia...”",target:"Autoridades del Poder Judicial",context:"Reunión y choque con jerarcas judiciales por seguridad e impunidad."},
-    {date:"27 MAY. 2026 · FERNÁNDEZ",quote:"“...estos vagabundos.”",target:"Activistas y sindicatos en protesta",context:"Conflicto por protestas y oposición al proyecto de armonización eléctrica."},
-    {date:"27 MAY. 2026 · FERNÁNDEZ",quote:"“...se llaman ambientalistas mentirosos. Son ambientalistas de caviar...”",target:"Diputados y activistas vinculados al Frente Amplio",context:"Ataque durante la defensa del proyecto de armonización eléctrica y la confrontación con sectores que se oponían a la iniciativa."}
-  ]
+  examples:[{"date":"20 MAY. 2026 · FERNÁNDEZ","quote":"“canallas”","target":"Prensa independiente y crítica","context":"Segmento de diálogo y preguntas sobre las directrices iniciales de reorganización de especialistas de salud de la Caja."},{"date":"20 MAY. 2026 · FERNÁNDEZ","quote":"“mamarracho”","target":"Proyecto de ley de Gilberto Campos","context":"Frase registrada durante la conferencia de prensa de ese día."},{"date":"20 MAY. 2026 · FERNÁNDEZ","quote":"“salieron de acusetas”","target":"Patricia Solano / magistrados que participaron en la reunión","context":"Continuación de las respuestas sobre las quejas públicas de magistrados."},{"date":"20 MAY. 2026 · FERNÁNDEZ","quote":"“vergüenza nacional”","target":"Carlos Díaz, fiscal general","context":"Ronda de preguntas sobre la Fiscalía General."},{"date":"20 MAY. 2026 · FERNÁNDEZ","quote":"“viven en Narnia”","target":"Orlando Aguirre, Patricia Solano y autoridades del Poder Judicial","context":"Bloque central dedicado a la coordinación de seguridad nacional."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“ambientalistas de caviar”","target":"Diputados del Frente Amplio y activistas ecológicos críticos","context":"Segmento sobre Crucitas."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“ambientalistas mentirosos”","target":"Diputados del Frente Amplio y activistas ecológicos críticos","context":"Mismo extracto del segmento sobre Crucitas."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“comunismo que ojalá se desapareciera”","target":"Bancada del Frente Amplio y opositores de izquierda","context":"Presentación del Proyecto de Armonización Eléctrica."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“enemigos del pueblo”","target":"Bloque opositor del PLN, Frente Amplio y activistas sindicales","context":"Debate sobre la ley eléctrica del ICE."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“estafa política de liberación nacional”","target":"Partido Liberación Nacional","context":"Comentarios sobre votaciones legislativas."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“invento de ley que se sacaron los comunistas”","target":"Exlegisladores y diputados de izquierda","context":"Banca de desarrollo y pymes."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“juego bajo politiquero”","target":"Diputados de oposición","context":"Agenda legislativa de seguridad."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“la misma piedra viene siendo Carlos Díaz”","target":"Carlos Díaz, fiscal general","context":"Declaraciones sobre la Fiscalía General."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“semejante estafa”","target":"Diputados de la bancada del PLN","context":"Reproches al Congreso por archivar proyectos fiscales."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“un montón de maleantes”","target":"Manifestantes violentos que atacaron patrullas en Limón","context":"Ronda de preguntas sobre el desalojo de la ruta."},{"date":"27 MAY. 2026 · FERNÁNDEZ","quote":"“vagabundos”","target":"Sindicatos, activistas y opositores que protestaban","context":"Segmento dedicado a protestas en Limón y Barranca."},{"date":"3 JUN. 2026 · FERNÁNDEZ","quote":"“prensa canalla”","target":"Medios de comunicación independientes críticos","context":"Primeros 10 minutos de la conferencia."},{"date":"10 JUN. 2026 · FERNÁNDEZ","quote":"“diputados irresponsables”","target":"Diputados que criticaron el proyecto fiscal","context":"Mismo extracto del segmento tributario."},{"date":"10 JUN. 2026 · FERNÁNDEZ","quote":"“medios canallas”","target":"Prensa crítica tradicional","context":"Proyectos de simplificación tributaria."},{"date":"17 JUN. 2026 · FERNÁNDEZ","quote":"“chavacanería”","target":"Magistrados de la Corte Suprema / sus justificaciones","context":"Críticas administrativas por recursos para policía judicial."},{"date":"17 JUN. 2026 · FERNÁNDEZ","quote":"“eso es un berrinche”","target":"Magistrados / Poder Judicial","context":"Presupuesto de plazas extraordinarias."},{"date":"17 JUN. 2026 · FERNÁNDEZ","quote":"“más de un irresponsable en la Asamblea”","target":"Diputados de oposición que criticaron la gira a Crucitas","context":"Reporte de la visita a Crucitas."},{"date":"17 JUN. 2026 · FERNÁNDEZ","quote":"“ni pica leña ni presta hacha”","target":"Claudia Dobles","context":"Infraestructura vial y carretera a San Carlos."},{"date":"17 JUN. 2026 · FERNÁNDEZ","quote":"“pura argolla... gente... bien enchufada”","target":"Sistema de nombramientos de jueces y candidatos a magistraturas","context":"Cuestionamiento de nombramientos internos."},{"date":"24 JUN. 2026 · FERNÁNDEZ","quote":"“alcahuetería y complicidad”","target":"Jueces penales y diputados de oposición","context":"Operativos fronterizos."},{"date":"24 JUN. 2026 · FERNÁNDEZ","quote":"“viejas de patio”","target":"Carlos Díaz, fiscal general","context":"Ronda de preguntas sobre la Fiscalía."},{"date":"24 JUN. 2026 · CHAVES","quote":"“chupando de esos manantiales de nutrición”","target":"Magistrados del Poder Judicial y sus regímenes de jubilación especial","context":"Este segmento se sitúa segundos antes del párrafo del \"dedito en la boca\" (punto 2 anterior), dentro de la misma alocución presupuestaria de Chaves."},{"date":"24 JUN. 2026 · CHAVES","quote":"“el ridículo de la hablada\" / \"chupando el dedito”","target":"Patricia Solano (Magistrada), Carlos Díaz (Fiscal) y Orlando Aguirre (Presidente de la Corte)","context":"Es la continuación directa e inmediata del segmento anterior sobre el presupuesto y las pensiones del Poder Judicial, enlazando orgánicamente con la interrupción verbal de respald…"},{"date":"24 JUN. 2026 · CHAVES","quote":"“princeso\" / \"princesito con corona”","target":"Carlos Díaz (Fiscal General de la República)","context":"Se sitúa en la segunda mitad de la ronda de preguntas de los reporteros."},{"date":"15 JUL. 2026 · FERNÁNDEZ","quote":"“meter los dedos en la boca”","target":"Magistrados de la Corte Suprema","context":"Defensa de reformas a pensiones."},{"date":"15 JUL. 2026 · FERNÁNDEZ","quote":"“qué poca vergüenza”","target":"Operadores judiciales penales","context":"Críticas al Poder Judicial."},{"date":"15 JUL. 2026 · CHAVES","quote":"“aporrea el piso con un trapo viejo sin credibilidad”","target":"Patricia Solano (Magistrada de la Sala Tercera)","context":"En la ronda de preguntas presenciales."},{"date":"22 JUL. 2026 · FERNÁNDEZ","quote":"“a todo chancho le llega su diciembre”","target":"Grandes evasores de impuestos y corporaciones bajo auditoría","context":"Informe tributario semanal."},{"date":"22 JUL. 2026 · CHAVES","quote":"“casa ordeñada”","target":"Gobierno de Carlos Alvarado Quesada (Administración PAC 2018-2022)","context":"Al inicio del bloque principal de la conferencia de prensa."},{"date":"22 JUL. 2026 · CHAVES","quote":"“yeguadas”","target":"Jorge Araya (Exdirector del OIJ / Analista crítico)","context":"Hacia el final del discurso introductorio de Chaves sobre el control tributario. El exabrupto se da justo antes de dar el pase explicativo al viceministro Víctor Julio Carvajal."},{"date":"29 JUL. 2026 · FERNÁNDEZ","quote":"“gente tan desgraciada”","target":"Opositores y periodistas que la criticaron en redes sociales","context":"Aclaración sobre críticas durante la emergencia."},{"date":"12 AGO. 2026 · FERNÁNDEZ","quote":"“el IAFA no sirve para nada”","target":"Instituto sobre Alcoholismo y Farmacodependencia (IAFA)","context":"Programas de salud mental juvenil y prevención de adicciones."}]
 }}
 ;
 const zxyTimeline=document.getElementById("zxy-timeline"),
@@ -538,7 +668,75 @@ function zxySelectYear(year){
   requestAnimationFrame(()=>zxyCenterYear(year));
   zxyUpdateArrows();
 }
-["2026","2025","2024","2023","2022"].forEach((year,i)=>{const b=document.createElement("button");b.className="zxy-year-btn"+(i===0?" zxy-active":"");b.dataset.zxyYear=year;b.innerHTML=`<span class="zxy-dot"></span><span class="zxy-year">${year}</span><span class="zxy-role">${year==="2026"?"Laura Fernández<br>presidente<br><span style=\"font-weight:400\">(Chaves, ministro)</span>":"Rodrigo Chaves<br>presidente"}</span>`;b.addEventListener("click",()=>zxySelectYear(year));zxyTimeline.appendChild(b)});
+["2026","2025","2024","2023","2022"].forEach((year,i)=>{const b=document.createElement("button");b.className="zxy-year-btn"+(i===0?" zxy-active":"");b.dataset.zxyYear=year;b.innerHTML=`<span class="zxy-dot"></span><span class="zxy-year">${year}</span><span class="zxy-role">${year==="2026"?"Laura Fernández<br>presidente":"Rodrigo Chaves<br>presidente"}</span>`;b.addEventListener("click",()=>zxySelectYear(year));zxyTimeline.appendChild(b)});
+
+function zxyInitQuoteCarousel(){
+  const scroller=zxyPanel.querySelector(".zxy-examples");
+  const prev=zxyPanel.querySelector(".zxy-quote-prev");
+  const next=zxyPanel.querySelector(".zxy-quote-next");
+  const counter=zxyPanel.querySelector(".zxy-quotes-counter");
+  if(!scroller||!prev||!next||!counter)return;
+
+  const cards=Array.from(scroller.querySelectorAll(".zxy-example"));
+  if(!cards.length)return;
+
+  let current=0;
+
+  function nearestIndex(){
+    const left=scroller.scrollLeft;
+    const maxScroll=scroller.scrollWidth-scroller.clientWidth;
+
+    // Force exact endpoints so the counter reaches 1/N and N/N.
+    if(left<=2) return 0;
+    if(maxScroll-left<=2) return cards.length-1;
+
+    let best=0;
+    let distance=Infinity;
+    cards.forEach((card,i)=>{
+      const d=Math.abs(card.offsetLeft-left);
+      if(d<distance){distance=d;best=i}
+    });
+    return best;
+  }
+
+  function update(){
+    current=nearestIndex();
+    counter.textContent=(current+1)+" de "+cards.length;
+    prev.disabled=current<=0;
+    next.disabled=current>=cards.length-1;
+  }
+
+  function goTo(index){
+    const target=Math.max(0,Math.min(cards.length-1,index));
+
+    if(target===cards.length-1){
+      scroller.scrollTo({
+        left:scroller.scrollWidth-scroller.clientWidth,
+        behavior:"smooth"
+      });
+    }else if(target===0){
+      scroller.scrollTo({left:0,behavior:"smooth"});
+    }else{
+      cards[target].scrollIntoView({
+        behavior:"smooth",
+        block:"nearest",
+        inline:"start"
+      });
+    }
+
+    current=target;
+    setTimeout(update,320);
+  }
+
+  prev.addEventListener("click",()=>goTo(current-1));
+  next.addEventListener("click",()=>goTo(current+1));
+  scroller.addEventListener("scroll",()=>{
+    requestAnimationFrame(update);
+  },{passive:true});
+
+  update();
+}
+
 function zxyRender(year){
   const d=zxyData[year];
   zxyPanel.innerHTML=`
@@ -569,16 +767,33 @@ function zxyRender(year){
       </div>
     </div>
 
-    <div class="zxy-examples">
-      ${d.examples.map(e=>`
-        <article class="zxy-example">
-          <div class="zxy-meta">${e.date}</div>
-          <blockquote class="zxy-quote">${e.quote}</blockquote>
-          <div class="zxy-target"><b>Blanco:</b> ${e.target}<div class="zxy-context">${e.context}</div></div>
-        </article>
-      `).join("")}
+    <div class="zxy-quotes-section">
+      <div class="zxy-quotes-head">
+        <div class="zxy-quotes-title">Todas las frases registradas</div>
+        <div class="zxy-quotes-tools">
+          <button type="button" class="zxy-quote-arrow zxy-quote-prev" aria-label="Frase anterior">‹</button>
+          <span class="zxy-quotes-counter">1 de ${d.examples.length}</span>
+          <button type="button" class="zxy-quote-arrow zxy-quote-next" aria-label="Frase siguiente">›</button>
+        </div>
+      </div>
+      <div class="zxy-carousel-hint">Desliza para explorar todas →</div>
+      <div class="zxy-examples" role="region" aria-label="Carrusel de frases agresivas registradas">
+        ${d.examples.map((e,i)=>`
+          <article class="zxy-example" data-zxy-quote-index="${i}">
+            <div class="zxy-meta">
+            <span class="zxy-card-date">${e.date.replace(/\s·\s(?:FERNÁNDEZ|CHAVES)$/,"")}</span>
+            ${/FERNÁNDEZ$/.test(e.date)
+              ? '<span class="zxy-speaker-tag zxy-speaker-fernandez">FERNÁNDEZ</span>'
+              : '<span class="zxy-speaker-tag zxy-speaker-chaves">CHAVES</span>'}
+          </div>
+            <blockquote class="zxy-quote">${e.quote}</blockquote>
+            <div class="zxy-target"><b>Blanco:</b> ${e.target}</div>
+          </article>
+        `).join("")}
+      </div>
     </div>
-  `
+  `;
+  zxyInitQuoteCarousel();
 }
 zxyPrevYear.addEventListener("click",()=>{const years=["2026","2025","2024","2023","2022"],idx=years.indexOf(zxyCurrentYear);if(idx>0)zxySelectYear(years[idx-1])});
 zxyNextYear.addEventListener("click",()=>{const years=["2026","2025","2024","2023","2022"],idx=years.indexOf(zxyCurrentYear);if(idx<years.length-1)zxySelectYear(years[idx+1])});
